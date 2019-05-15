@@ -43,3 +43,8 @@ task runIndexGenerator(type: JavaExec) {
     main = "eliskapulcova.flats.IndexGenerator"
     classpath sourceSets.main.runtimeClasspath
 }
+
+task runAdDetailCrawler(type: JavaExec) {
+    main = "eliskapulcova.flats.AdDetailRunner"
+    classpath sourceSets.main.runtimeClasspath
+}
