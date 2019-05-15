@@ -35,6 +35,7 @@ dependencies {
     implementation "javax.xml.bind:jaxb-api:2.3.0"
     implementation('org.postgresql:postgresql')
     implementation "com.h2database:h2"
+    implementation 'com.github.googlemaps:google-maps-services-java:c9084de'
     
     testCompile("junit:junit")
 }
@@ -46,5 +47,10 @@ task runIndexGenerator(type: JavaExec) {
 
 task runAdDetailCrawler(type: JavaExec) {
     main = "eliskapulcova.flats.AdDetailRunner"
+    classpath sourceSets.main.runtimeClasspath
+}
+
+task runGeocodingGenerator(type: JavaExec) {
+    main = "eliskapulcova.flats.GeocodingGeneratorRunner"
     classpath sourceSets.main.runtimeClasspath
 }
