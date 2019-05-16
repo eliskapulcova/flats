@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Properties;
 
 @Service
 public class GeocodingGenerator {
@@ -28,9 +29,11 @@ public class GeocodingGenerator {
     public void run() throws InterruptedException, IOException, ApiException {
 
         Iterable<AdDetail> adDetails = adDetailRepository.findAll();
+        Properties properties = System.getProperties();
+        String apiKey = properties.getProperty("google.api_key");
 
         GeoApiContext context = new GeoApiContext.Builder()
-                .apiKey("AIzaSyAb6zGH2eJv_WjxqAEFh_GvJZnqc3R38xw")
+                .apiKey(apiKey)
                 .build();
 
         int i = 0;

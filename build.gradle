@@ -53,4 +53,5 @@ task runAdDetailCrawler(type: JavaExec) {
 task runGeocodingGenerator(type: JavaExec) {
     main = "eliskapulcova.flats.GeocodingGeneratorRunner"
     classpath sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
 }
