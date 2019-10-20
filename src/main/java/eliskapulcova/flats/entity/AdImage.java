@@ -1,12 +1,6 @@
 package eliskapulcova.flats.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +15,8 @@ public class AdImage {
     private AdDetail adDetail;
 
     private String imgUrl;
+
+    private Integer rating;
 
     protected AdImage() {}
 

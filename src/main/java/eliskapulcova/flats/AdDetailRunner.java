@@ -35,3 +35,11 @@ public class AdDetailRunner implements CommandLineRunner {
     }
 }
 
+// volani staticky metody
+//Color color = Color.makecolor();
+
+//volani dynamicky funkce
+//Color color = new Color();
+//      color.makecolor();
+
+

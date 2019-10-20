@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface IndexRecordRepository extends CrudRepository<IndexRecord, UUID> {
     Iterable<IndexRecord> findByScrappedAtIsNull();
+
 }
 

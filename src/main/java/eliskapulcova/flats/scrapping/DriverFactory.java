@@ -11,8 +11,8 @@ public class DriverFactory {
         String chromeDriverPath = "/usr/local/bin/chromedriver";
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         ChromeOptions options = new ChromeOptions();
-        //options.addArguments("--window-size=1920,1200", "--ignore-certificate-errors");
-        options.addArguments("--headless", "--window-size=1920,1200", "--ignore-certificate-errors");
+//        options.addArguments("--headless", "--start-maximized", "--ignore-certificate-errors");
+        options.addArguments("--start-maximized", "--ignore-certificate-errors");
 
         return new ChromeDriver(options);
     }

@@ -1,9 +1,9 @@
 package eliskapulcova.flats.entity;
 
 
-import org.graalvm.compiler.replacements.IntrinsicGraphBuilder;
-import org.jetbrains.annotations.Nullable;
+//import org.graalvm.compiler.replacements.IntrinsicGraphBuilder;
 
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -67,6 +67,10 @@ public class AdDetail {
     private Integer shop;
 
     private Integer school;
+
+    private Integer photographersSkill;
+
+    private Integer apartmentRating;
 
     protected AdDetail() {
     }
@@ -169,5 +173,18 @@ public class AdDetail {
 
     public void setSchool(Integer school) {
         this.school = school;
+    }
+
+    public void setPhotographersSkill(Integer photographersSkill) {
+        this.photographersSkill = photographersSkill;
+    }
+
+    public void setApartmentRating(Integer apartmentRating) {
+        this.apartmentRating = apartmentRating;
+    }
+
+    public void update(Integer photographersSkill, Integer apartmentRating) {
+        this.photographersSkill = photographersSkill;
+        this.apartmentRating = apartmentRating;
     }
 }

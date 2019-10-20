@@ -38,7 +38,8 @@ public class IndexGenerator implements CommandLineRunner {
         String chromeDriverPath = "/usr/local/bin/chromedriver";
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless", "--window-size=1920,1200", "--ignore-certificate-errors");
+        options.addArguments("start-maximized", "--ignore-certificate-errors");
+//        options.addArguments("--headless", "--window-size=1920,1200", "--ignore-certificate-errors");
         WebDriver driver = new ChromeDriver(options);
 
         int currentPage = 1;

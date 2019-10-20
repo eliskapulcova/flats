@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Images</title>
+    <meta http-equiv="Content-Type" spz="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>AdDetail images</h1>
+<table>
+    <tr th:each="image : ${images}">
+    </tr>
+</table>
+<h1>Rating</h1>
+<select th:field="*{apartmentRating}">
+    <option th:text="Výborný" th:value="'1'"></option>
+    <option th:text="Chvalitebný" th:value="'2'"></option>
+    <option th:text="Dobrý" th:value="'3'"></option>
+    <option th:text="Dostatečný" th:value="'4'"></option>
+    <option th:text="Nedostatečný" th:value="'5'"></option>
+</select>
+<p>
+    <input type="submit" value="Submit"/>
+</p>
+<select th:field="*{photographersSkill}">
+    <option th:text="Výborný" th:value="'1'"></option>
+    <option th:text="Chvalitebný" th:value="'2'"></option>
+    <option th:text="Dobrý" th:value="'3'"></option>
+    <option th:text="Dostatečný" th:value="'4'"></option>
+    <option th:text="Nedostatečný" th:value="'5'"></option>
+</select>
+<p>
+    <input type="submit" value="Submit"/>
+</p>
+</body>
+</html>

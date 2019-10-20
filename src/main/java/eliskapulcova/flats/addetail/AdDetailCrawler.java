@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
-
 import java.util.regex.Pattern;
 
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +28,7 @@ import java.util.regex.Pattern;
 @Component
 public class AdDetailCrawler {
 
-    public static final int TIME_OUT_IN_SECONDS = 15;
+    public static final int TIME_OUT_IN_SECONDS = 20;
     private ChromeDriver driver;
 
     private final IndexRecordRepository indexRecordRepository;
@@ -80,7 +79,7 @@ public class AdDetailCrawler {
         } catch (NoSuchElementException exception) {
             return;
         }
-        driver.findElementByCssSelector(".btn.thumbnails").click();
+
 //        driver.findElementByCssSelector(".btn-circle-gallery-fs").click();
 
         String location = driver.findElementByCssSelector(".property-title .location-text").getText();
@@ -362,6 +361,7 @@ public class AdDetailCrawler {
 
 
     private void processImages(AdDetail adDetail) {
+        driver.findElementByCssSelector(".btn.thumbnails").click();
 
         List<WebElement> imageElements = driver.findElementsByCssSelector(".thumbnails-inner .list .thumb-img");
         System.out.println(imageElements.size());
