@@ -68,7 +68,7 @@ public class AdDetail {
 
     private Integer school;
 
-    private Integer photographersSkill;
+    private Integer photographersSkillRating;
 
     private Integer apartmentRating;
 
@@ -179,16 +179,8 @@ public class AdDetail {
         this.school = school;
     }
 
-    public void setPhotographersSkill(Integer photographersSkill) {
-        this.photographersSkill = photographersSkill;
-    }
-
-    public void setApartmentRating(Integer apartmentRating) {
-        this.apartmentRating = apartmentRating;
-    }
-
-    public void update(Integer photographersSkill, Integer apartmentRating) {
-        this.photographersSkill = photographersSkill;
+    public void updateRatings(Integer photographersSkillRating, Integer apartmentRating) {
+        this.photographersSkillRating = photographersSkillRating;
         this.apartmentRating = apartmentRating;
     }
 }

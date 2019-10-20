@@ -1,6 +1,6 @@
 package eliskapulcova.flats.controller.model;
 
-public class AdDetailRating {
+public class RateAdDetail {
     private String adDetailId;
     private Integer apartmentRating;
     private Integer photographersSkillRating;

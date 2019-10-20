@@ -1,5 +1,8 @@
 package eliskapulcova.flats.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -11,6 +14,7 @@ public class AdImage {
     private UUID id;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name="ad_detail_id", nullable=false)
     private AdDetail adDetail;
 
