@@ -79,6 +79,10 @@ public class AdDetail {
         this.id = sRealityId;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getLocation() {
         return location;
     }

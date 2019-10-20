@@ -1,5 +1,6 @@
-package eliskapulcova.flats;
+package eliskapulcova.flats.controller;
 
+import eliskapulcova.flats.controller.model.AdDetailRating;
 import eliskapulcova.flats.entity.AdDetail;
 import eliskapulcova.flats.entity.AdImage;
 import eliskapulcova.flats.repository.AdDetailRepository;
@@ -29,25 +30,35 @@ public class ImageClassificationController {
 
     @GetMapping("/image-rating")
     public String renderImage(Model model) {
-        AdDetail adDetail = adDetailRepository.findByApartmentRatingIsNull();
+        AdDetail adDetail = adDetailRepository.findOneByApartmentRatingIsNull();
+        if (adDetail == null) {
+            throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        }
+
         List<AdImage> images = adImageRepository.findByAdDetail(adDetail);
+
+        final AdDetailRating adDetailRating = new AdDetailRating();
+        adDetailRating.setAdDetailId(adDetail.getId());
+
+        model.addAttribute("model", adDetailRating);
         model.addAttribute("adDetail", adDetail);
         model.addAttribute("images", images);
+
         return "image-rating";
     }
 
     @PostMapping("/image-rating")
     public RedirectView editFormSubmit(
-        @RequestParam("id") String id,
+        @RequestParam("adDetailId") String adDetailId,
         @RequestParam("apartmentRating") Integer apartmentRating,
-        @RequestParam("photographersSkill") Integer photographersSkill
+        @RequestParam("photographersSkillRating") Integer photographersSkillRating
     ) {
-        Optional<AdDetail> MaybeAdDetail = adDetailRepository.findById(id);
+        Optional<AdDetail> MaybeAdDetail = adDetailRepository.findById(adDetailId);
         if (!MaybeAdDetail.isPresent()) {
             throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
         }
         AdDetail adDetail = MaybeAdDetail.get();
-        adDetail.update(apartmentRating, photographersSkill);
+        adDetail.update(apartmentRating, photographersSkillRating);
         this.adDetailRepository.save(adDetail);
         return new RedirectView("/image-rating");
     }

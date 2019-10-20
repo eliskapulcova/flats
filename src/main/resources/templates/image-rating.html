@@ -2,34 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Images</title>
-    <meta http-equiv="Content-Type" spz="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" spz="text/html; charset=UTF-8" />
 </head>
 <body>
 <h1>AdDetail images</h1>
-<table>
-    <tr th:each="image : ${images}">
-    </tr>
-</table>
+<div style="display: flex; width: 100vh; flex-wrap: wrap">
+    <div th:each="image : ${images}">
+        <img width="200" src="${image.imgUrl}" />
+    </div>
+</div>
 <h1>Rating</h1>
-<select th:field="*{apartmentRating}">
-    <option th:text="Výborný" th:value="'1'"></option>
-    <option th:text="Chvalitebný" th:value="'2'"></option>
-    <option th:text="Dobrý" th:value="'3'"></option>
-    <option th:text="Dostatečný" th:value="'4'"></option>
-    <option th:text="Nedostatečný" th:value="'5'"></option>
-</select>
-<p>
-    <input type="submit" value="Submit"/>
-</p>
-<select th:field="*{photographersSkill}">
-    <option th:text="Výborný" th:value="'1'"></option>
-    <option th:text="Chvalitebný" th:value="'2'"></option>
-    <option th:text="Dobrý" th:value="'3'"></option>
-    <option th:text="Dostatečný" th:value="'4'"></option>
-    <option th:text="Nedostatečný" th:value="'5'"></option>
-</select>
-<p>
-    <input type="submit" value="Submit"/>
-</p>
+<form action="#" th:action="@{/image-rating}" th:object="${model}" method="post">
+    <input type="hidden" th:field="*{adDetailId}" />
+    <div>
+        <label for="apartmentRating">Apartment Rating</label>
+        <select id="apartmentRating" th:field="*{apartmentRating}">
+            <option th:text="Výborný" th:value="'1'"></option>
+            <option th:text="Chvalitebný" th:value="'2'"></option>
+            <option th:text="Dobrý" th:value="'3'"></option>
+            <option th:text="Dostatečný" th:value="'4'"></option>
+            <option th:text="Nedostatečný" th:value="'5'"></option>
+        </select>
+    </div>
+    <!--    <input type="radio" id="*{photographersSkillRating}"-->
+    <!--           name="photographersSkillRating" th:value="1">-->
+    <!--    <label for="*{photographersSkillRating}">Výborný</label>-->
+    <!--    <input type="radio" id="*{photographersSkillRating}"-->
+    <!--           name="photographersSkillRating" th:value="2">-->
+    <!--    <label for="*{photographersSkillRating}">Výborný</label>-->
+    <!--    <input type="radio" id="*{photographersSkillRating}"-->
+    <!--           name="photographersSkillRating" th:value="3">-->
+    <!--    <label for="*{photographersSkillRating}">Výborný</label>-->
+    <!--    <input type="radio" id="*{photographersSkillRating}"-->
+    <!--           name="photographersSkillRating" th:value="4">-->
+    <!--    <label for="*{photographersSkillRating}">Výborný</label>-->
+    <!--    <input type="radio" id="*{photographersSkillRating}"-->
+    <!--           name="photographersSkillRating" th:value="5">-->
+    <!--    <label for="*{photographersSkillRating}">Výborný</label>-->
+
+    <div>
+        <label for="photographersSkillRating">Photographers Skill Rating</label>
+        <select id="photographersSkillRating" th:field="*{photographersSkillRating}">
+            <option th:text="Výborný" th:value="'1'"></option>
+            <option th:text="Chvalitebný" th:value="'2'"></option>
+            <option th:text="Dobrý" th:value="'3'"></option>
+            <option th:text="Dostatečný" th:value="'4'"></option>
+            <option th:text="Nedostatečný" th:value="'5'"></option>
+        </select>
+    </div>
+    <p>
+        <input type="submit" value="Submit" />
+    </p>
+</form>
 </body>
 </html>
