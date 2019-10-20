@@ -7,7 +7,6 @@ buildscript {
     }
 }
 
-
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -36,7 +35,8 @@ dependencies {
     implementation('org.postgresql:postgresql')
     implementation "com.h2database:h2"
     implementation 'com.github.googlemaps:google-maps-services-java:c9084de'
-    
+    implementation group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
+
     testCompile("junit:junit")
 }
 
@@ -52,6 +52,12 @@ task runAdDetailCrawler(type: JavaExec) {
 
 task runGeocodingGenerator(type: JavaExec) {
     main = "eliskapulcova.flats.GeocodingGeneratorRunner"
+    classpath sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
+}
+
+task runWeb(type: JavaExec) {
+    main = "eliskapulcova.flats.Application"
     classpath sourceSets.main.runtimeClasspath
     systemProperties System.getProperties()
 }

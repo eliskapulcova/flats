@@ -26,10 +26,10 @@ public class AdImage {
         this.imgUrl = imgUrl;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
 
-
-
-
-    // getters and setters
+// getters and setters
 }
 

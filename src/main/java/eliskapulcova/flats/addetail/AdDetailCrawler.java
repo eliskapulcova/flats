@@ -12,7 +12,7 @@ import eliskapulcova.flats.value.PoiType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,8 @@ import java.util.regex.Pattern;
 public class AdDetailCrawler {
 
     public static final int TIME_OUT_IN_SECONDS = 20;
-    private ChromeDriver driver;
+    private DriverFactory driverFactory;
+    private RemoteWebDriver driver;
 
     private final IndexRecordRepository indexRecordRepository;
 
@@ -37,19 +38,26 @@ public class AdDetailCrawler {
 
     private final AdImageRepository adImageRepository;
 
-
     @Autowired
     public AdDetailCrawler(
-            DriverFactory driverFactory,
-            IndexRecordRepository indexRecordRepository,
-            AdDetailRepository adDetailRepository,
-            AdImageRepository adImageRepository
+        DriverFactory driverFactory,
+        IndexRecordRepository indexRecordRepository,
+        AdDetailRepository adDetailRepository,
+        AdImageRepository adImageRepository
     ) {
-        this.driver = driverFactory.create();
+        this.driverFactory = driverFactory;
         this.indexRecordRepository = indexRecordRepository;
         this.adDetailRepository = adDetailRepository;
         this.adImageRepository = adImageRepository;
 
+    }
+
+    private RemoteWebDriver getDriver() {
+        if (driver == null) {
+            driver = driverFactory.create();
+        }
+
+        return driver;
     }
 
     public void execute() {
@@ -69,23 +77,23 @@ public class AdDetailCrawler {
 
         //System.out.println("-----------starting new ad-------------");
 
-        driver.get(indexRecord.getUrl());
+        getDriver().get(indexRecord.getUrl());
 
         System.out.println(indexRecord.getUrl());
         new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".content-inner")));
+            .until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".content-inner")));
         try {
-            driver.findElementByCssSelector(".property-title").getText();
+            getDriver().findElementByCssSelector(".property-title").getText();
         } catch (NoSuchElementException exception) {
             return;
         }
 
 //        driver.findElementByCssSelector(".btn-circle-gallery-fs").click();
 
-        String location = driver.findElementByCssSelector(".property-title .location-text").getText();
+        String location = getDriver().findElementByCssSelector(".property-title .location-text").getText();
         adDetail.setLocation(location);
 
-        String price = driver.findElementByCssSelector(".property-title .norm-price").getText();
+        String price = getDriver().findElementByCssSelector(".property-title .norm-price").getText();
         if (price.contains("Info o ceně")) {
             indexRecordRepository.delete(indexRecord);
             return;
@@ -107,9 +115,8 @@ public class AdDetailCrawler {
 
         //System.out.println(matcher);
 
-
-        List<WebElement> descriptionParagraphs = driver.findElementsByCssSelector(
-                ".property-detail .description p"
+        List<WebElement> descriptionParagraphs = getDriver().findElementsByCssSelector(
+            ".property-detail .description p"
         );
         StringBuilder descriptionBuilder = new StringBuilder();
         for (WebElement paragraph : descriptionParagraphs) {
@@ -118,12 +125,12 @@ public class AdDetailCrawler {
             }
 
             descriptionBuilder
-                    .append(paragraph.getText())
-                    .append(System.lineSeparator());
+                .append(paragraph.getText())
+                .append(System.lineSeparator());
         }
         adDetail.setDescription(descriptionBuilder.toString());
 
-        List<WebElement> params = driver.findElementsByCssSelector(".property-detail .params .param");
+        List<WebElement> params = getDriver().findElementsByCssSelector(".property-detail .params .param");
         //System.out.println(params.size());
         for (WebElement param : params) {
             //System.out.println("step 1");
@@ -138,7 +145,6 @@ public class AdDetailCrawler {
             } catch (IllegalArgumentException e) {
                 continue;
             }
-
 
             WebElement paramValueElement = param.findElement(By.cssSelector(".param-value"));
             //System.out.println("initiating param processing");
@@ -210,8 +216,7 @@ public class AdDetailCrawler {
 
         //System.out.println("---------");
 
-
-        List<WebElement> paramsNeighborhood = driver.findElementsByCssSelector(".pois li");
+        List<WebElement> paramsNeighborhood = getDriver().findElementsByCssSelector(".pois li");
 
         for (WebElement paramNeighborhood : paramsNeighborhood) {
 
@@ -359,11 +364,10 @@ public class AdDetailCrawler {
         processImages(adDetail);
     }
 
-
     private void processImages(AdDetail adDetail) {
-        driver.findElementByCssSelector(".btn.thumbnails").click();
+        getDriver().findElementByCssSelector(".btn.thumbnails").click();
 
-        List<WebElement> imageElements = driver.findElementsByCssSelector(".thumbnails-inner .list .thumb-img");
+        List<WebElement> imageElements = getDriver().findElementsByCssSelector(".thumbnails-inner .list .thumb-img");
         System.out.println(imageElements.size());
         //System.out.println("-------------");
 
@@ -376,7 +380,7 @@ public class AdDetailCrawler {
             //System.out.println(imageElement);
 
             new WebDriverWait(driver, TIME_OUT_IN_SECONDS)
-                    .until(ExpectedConditions.attributeToBeNotEmpty(imageElement, "src"));
+                .until(ExpectedConditions.attributeToBeNotEmpty(imageElement, "src"));
 
             String unAdjustedImageUrl = imageElement.getAttribute("src");
             System.out.println(unAdjustedImageUrl);
@@ -385,12 +389,11 @@ public class AdDetailCrawler {
             StringBuilder imageUrlBuilder = new StringBuilder();
             String foundImageMatch = imageMatcher.group(0);
 
-
             String imageUrlParameters = "res,1920,1080,1|wrm,/watermark/sreality.png,10|shr,,20|jpg,90";
 
             imageUrlBuilder
-                    .append(foundImageMatch)
-                    .append(imageUrlParameters);
+                .append(foundImageMatch)
+                .append(imageUrlParameters);
 
             //System.out.println(imageUrlBuilder.toString());
             AdImage adImage = new AdImage(adDetail, imageUrlBuilder.toString());
@@ -400,7 +403,6 @@ public class AdDetailCrawler {
             //System.out.println(unAdjustedImageUrl);
         }
     }
-
 
     //try {
     // AdDetail adDetail;
@@ -424,12 +426,10 @@ public class AdDetailCrawler {
         }
     }
 
-
 //       System.out.println(ad);
 //       System.out.println(location);
 
 //       System.out.println(descriptionParagraphs);
-
 
 }
 
