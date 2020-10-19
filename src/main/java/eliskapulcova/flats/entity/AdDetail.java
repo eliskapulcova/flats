@@ -1,13 +1,9 @@
 package eliskapulcova.flats.entity;
 
-
-//import org.graalvm.compiler.replacements.IntrinsicGraphBuilder;
-
-import org.jetbrains.annotations.Nullable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import org.jetbrains.annotations.Nullable;
 
 @Entity
 public class AdDetail {
@@ -28,7 +24,6 @@ public class AdDetail {
     @Nullable
     private Integer area;
 
-
     @Nullable
     private String location;
 
@@ -46,7 +41,6 @@ public class AdDetail {
 
     private Boolean lift;
 
-
     private Integer underground;
 
     private Integer tram;
@@ -54,6 +48,7 @@ public class AdDetail {
     private Integer bus;
 
     private Integer train;
+
     private Integer atm;
 
     private Integer post;

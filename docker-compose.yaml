@@ -7,10 +7,7 @@ services:
         environment:
             POSTGRES_DB: flats
         ports:
-          - 5432:5432
+            - "5432:5432"
         volumes:
-            - postgres:/var/lib/postgresql:delegated
+            - ./.docker/pg/flats:/var/lib/postgresql:delegated
 
-volumes:
-    postgres:
-        driver: local

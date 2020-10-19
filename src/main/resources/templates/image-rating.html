@@ -12,12 +12,6 @@
     </p>
 </form>
 
-<h1>AdDetail images</h1>
-<div style="display: flex; width: 100vw; flex-wrap: wrap">
-    <div th:each="image : ${images}">
-        <img th:src="${image.imgUrl}" width="200"/>
-    </div>
-</div>
 <h1>Rating</h1>
 <form action="#" th:action="@{/image-rating}" th:object="${model}" method="post">
     <input th:field="*{adDetailId}" type="hidden"/>
@@ -63,6 +57,13 @@
         <input type="submit" value="Submit"/>
     </p>
 </form>
+
+<h1>Images</h1>
+<div style="display: flex; width: 100vw; flex-wrap: wrap">
+    <div th:each="image : ${images}">
+        <img th:src="${image.imgUrl}" width="300"/>
+    </div>
+</div>
 
 </body>
 </html>

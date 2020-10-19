@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -216,11 +215,11 @@ public class AdDetailCrawler {
 
         //System.out.println("---------");
 
-        List<WebElement> paramsNeighborhood = getDriver().findElementsByCssSelector(".pois li");
+        List<WebElement> paramsNeighborhood = getDriver().findElementsByCssSelector(".c-pois__poi");
 
         for (WebElement paramNeighborhood : paramsNeighborhood) {
 
-            String labelValue = paramNeighborhood.findElement(By.cssSelector(".poi-label")).getText();
+            String labelValue = paramNeighborhood.findElement(By.cssSelector(".c-pois__poi-label")).getText();
             labelValue = labelValue.substring(0, labelValue.length() - 1);
             System.out.println(labelValue);
 
@@ -232,7 +231,7 @@ public class AdDetailCrawler {
                 continue;
             }
 
-            WebElement paramValueElement = paramNeighborhood.findElement(By.cssSelector(".poi-value .distance"));
+            WebElement paramValueElement = paramNeighborhood.findElement(By.cssSelector(".c-pois__distance"));
             //System.out.println("initiating param processing");
             switch (poiType) {
                 case UNDERGROUND:

@@ -1,6 +1,6 @@
 package eliskapulcova.flats;
 
-import eliskapulcova.flats.addetail.AdDetailCrawler;
+import eliskapulcova.flats.addetail.AdDetailTrucksCrawler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,24 +9,23 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = {"eliskapulcova.flats"})
 @EnableAutoConfiguration
-//@SpringBootApplication
-public class AdDetailRunner implements CommandLineRunner {
+public class AdDetailForTrucksRunner implements CommandLineRunner {
 
-    private final AdDetailCrawler adDetailCrawler;
-
-    public static void main(String[] args) {
-        SpringApplication.run(AdDetailRunner.class, args);
-
-    }
+    private final AdDetailTrucksCrawler adDetailTrucksCrawler;
 
     @Autowired
-    public AdDetailRunner(AdDetailCrawler adDetailCrawler) {
-        this.adDetailCrawler = adDetailCrawler;
+    public AdDetailForTrucksRunner(AdDetailTrucksCrawler adDetailTrucksCrawler) {
+        this.adDetailTrucksCrawler = adDetailTrucksCrawler;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(eliskapulcova.flats.AdDetailForTrucksRunner.class, args);
+
     }
 
     public void run(String... args) {
         try {
-            this.adDetailCrawler.execute();
+            this.adDetailTrucksCrawler.execute();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
 
@@ -34,5 +33,3 @@ public class AdDetailRunner implements CommandLineRunner {
         }
     }
 }
-
-
